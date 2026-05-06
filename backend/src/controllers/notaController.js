@@ -1,101 +1,123 @@
-const notaModel = require('../models/notaModel');
+const db = require('../config/db');
 
-const notaController = {
-  async listar(req, res) {
-    try {
-      const notas = await notaModel.findAll();
-      res.json(notas);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Erro ao listar notas' });
-    }
-  },
-  
-  async buscarPorId(req, res) {
-    try {
-      const { id } = req.params;
-      const nota = await notaModel.findById(id);
-      
-      if (!nota) {
-        return res.status(404).json({ error: 'Nota não encontrada' });
-      }
-      
-      res.json(nota);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Erro ao buscar nota' });
-    }
-  },
-  
-  async listarPorAluno(req, res) {
-    try {
-      const { alunoId } = req.params;
-      const notas = await notaModel.findByAluno(alunoId);
-      res.json(notas);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Erro ao listar notas do aluno' });
-    }
-  },
-  
-  async criar(req, res) {
-    try {
-      const { aluno_id, disciplina_id, nota, bimestre, observacao } = req.body;
-      
-      if (!aluno_id || !disciplina_id || !nota || !bimestre) {
-        return res.status(400).json({ error: 'Aluno, disciplina, nota e bimestre são obrigatórios' });
-      }
-      
-      if (nota < 0 || nota > 10) {
-        return res.status(400).json({ error: 'Nota deve estar entre 0 e 10' });
-      }
-      
-      const result = await notaModel.create({ aluno_id, disciplina_id, nota, bimestre, observacao });
-      res.status(201).json({ message: 'Nota criada com sucesso', id: result.insertId });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Erro ao criar nota' });
-    }
-  },
-  
-  async atualizar(req, res) {
-    try {
-      const { id } = req.params;
-      const { aluno_id, disciplina_id, nota, bimestre, observacao } = req.body;
-      
-      const notaExistente = await notaModel.findById(id);
-      if (!notaExistente) {
-        return res.status(404).json({ error: 'Nota não encontrada' });
-      }
-      
-      if (nota && (nota < 0 || nota > 10)) {
-        return res.status(400).json({ error: 'Nota deve estar entre 0 e 10' });
-      }
-      
-      await notaModel.update(id, { aluno_id, disciplina_id, nota, bimestre, observacao });
-      res.json({ message: 'Nota atualizada com sucesso' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Erro ao atualizar nota' });
-    }
-  },
-  
-  async deletar(req, res) {
-    try {
-      const { id } = req.params;
-      
-      const nota = await notaModel.findById(id);
-      if (!nota) {
-        return res.status(404).json({ error: 'Nota não encontrada' });
-      }
-      
-      await notaModel.delete(id);
-      res.json({ message: 'Nota deletada com sucesso' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Erro ao deletar nota' });
-    }
+// 🔹 LISTAR TODAS AS NOTAS
+async function listarTodos(req, res) {
+  try {
+    const [rows] = await db.execute(`
+      SELECT * FROM notas
+    `);
+
+    return res.status(200).json(rows);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
-};
+}
 
-module.exports = notaController;
+// 🔹 LISTAR POR ALUNO
+async function listarPorAluno(req, res) {
+  try {
+    const { alunoId } = req.params;
+
+    const [rows] = await db.execute(
+      `SELECT * FROM notas WHERE aluno_id = ?`,
+      [alunoId]
+    );
+
+    return res.status(200).json(rows);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
+
+// 🔹 BUSCAR POR ID
+async function buscarPorId(req, res) {
+  try {
+    const { id } = req.params;
+
+    const [rows] = await db.execute(
+      `SELECT * FROM notas WHERE id = ?`,
+      [id]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "Nota não encontrada" });
+    }
+
+    return res.status(200).json(rows[0]);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
+
+// 🔹 CRIAR NOTA
+async function criar(req, res) {
+  try {
+    const { aluno_id, disciplina_id, nota, bimestre } = req.body;
+
+    const result = await db.execute(
+      `INSERT INTO notas (aluno_id, disciplina_id, nota, bimestre)
+       VALUES (?, ?, ?, ?)`,
+      [aluno_id, disciplina_id, nota, bimestre]
+    );
+
+    return res.status(201).json({
+      message: "Nota criada com sucesso",
+      id: result[0].insertId
+    });
+
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
+
+// 🔹 ATUALIZAR NOTA
+async function atualizar(req, res) {
+  try {
+    const { id } = req.params;
+    const { nota } = req.body;
+
+    const [result] = await db.execute(
+      `UPDATE notas SET nota = ? WHERE id = ?`,
+      [nota, id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Nota não encontrada" });
+    }
+
+    return res.status(200).json({ message: "Nota atualizada com sucesso" });
+
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
+
+// 🔹 DELETAR NOTA
+async function deletar(req, res) {
+  try {
+    const { id } = req.params;
+
+    const [result] = await db.execute(
+      `DELETE FROM notas WHERE id = ?`,
+      [id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Nota não encontrada" });
+    }
+
+    return res.status(200).json({ message: "Nota deletada com sucesso" });
+
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
+
+module.exports = {
+  listarTodos,
+  listarPorAluno,
+  buscarPorId,
+  criar,
+  atualizar,
+  deletar
+};

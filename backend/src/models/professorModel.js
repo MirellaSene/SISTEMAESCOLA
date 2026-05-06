@@ -1,55 +1,65 @@
 const db = require('../config/db.js');
 
-exports.listar = async () => {
-    const [rows] = await db.execute("SELECT * FROM professores");
+const professorModel = {
+  async findAll() {
+    const [rows] = await db.execute(`
+      SELECT * FROM professores
+      ORDER BY id DESC
+    `);
     return rows;
-};
+  },
 
-exports.buscarPorId = async (id) => {
+  async findById(id) {
     const [rows] = await db.execute(
-        "SELECT * FROM professores WHERE id = ?",
-        [id]
+      `SELECT * FROM professores WHERE id = ?`,
+      [id]
     );
     return rows[0];
-};
+  },
 
-exports.criar = async (professor) => {
+  async create(professor) {
     const { nome, email, telefone, especialidade } = professor;
 
     const [result] = await db.execute(
-        `INSERT INTO professores (nome, email, telefone, especialidade)
-         VALUES (?, ?, ?, ?)`,
-        [
-            nome ?? null,
-            email ?? null,
-            telefone ?? null,
-            especialidade ?? null
-        ]
+      `INSERT INTO professores (nome, email, telefone, especialidade)
+       VALUES (?, ?, ?, ?)`,
+      [
+        nome ?? null,
+        email ?? null,
+        telefone ?? null,
+        especialidade ?? null
+      ]
     );
 
-    return result.insertId;
-};
+    return result;
+  },
 
-exports.atualizar = async (id, professor) => {
+  async update(id, professor) {
     const { nome, email, telefone, especialidade } = professor;
 
-    await db.execute(
-        `UPDATE professores 
-         SET nome = ?, email = ?, telefone = ?, especialidade = ?
-         WHERE id = ?`,
-        [
-            nome ?? null,
-            email ?? null,
-            telefone ?? null,
-            especialidade ?? null,
-            id
-        ]
+    const [result] = await db.execute(
+      `UPDATE professores 
+       SET nome = ?, email = ?, telefone = ?, especialidade = ?
+       WHERE id = ?`,
+      [
+        nome ?? null,
+        email ?? null,
+        telefone ?? null,
+        especialidade ?? null,
+        id
+      ]
     );
+
+    return result;
+  },
+
+  async delete(id) {
+    const [result] = await db.execute(
+      `DELETE FROM professores WHERE id = ?`,
+      [id]
+    );
+    return result;
+  }
 };
 
-exports.deletar = async (id) => {
-    await db.execute(
-        "DELETE FROM professores WHERE id = ?",
-        [id]
-    );
-};
+module.exports = professorModel;

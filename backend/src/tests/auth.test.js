@@ -1,6 +1,6 @@
-import request from "supertest";
-import app from "../../server.js";
-import db from "../config/db.js"
+const request = require("supertest");
+const app = require("../../src/app");
+const db = require("../config/db");
 
 describe('Autenticação', () => {
   beforeAll(async () => {

@@ -35,24 +35,40 @@ const notaModel = {
   },
   
   async create(nota) {
-    // 🔥 CORREÇÃO AQUI
     const { aluno_id, disciplina_id, nota: valor, bimestre, observacao } = nota;
 
     const [result] = await db.execute(
-      'INSERT INTO notas (aluno_id, disciplina_id, nota, bimestre, observacao) VALUES (?, ?, ?, ?, ?)',
-      [aluno_id, disciplina_id, valor, bimestre, observacao]
+      `INSERT INTO notas (aluno_id, disciplina_id, nota, bimestre, observacao)
+       VALUES (?, ?, ?, ?, ?)`,
+      [
+        aluno_id ?? null,
+        disciplina_id ?? null,
+        valor ?? null,
+        bimestre ?? null,
+        observacao ?? null
+      ]
     );
+
     return result;
   },
   
   async update(id, nota) {
-    // 🔥 CORREÇÃO AQUI TAMBÉM
     const { aluno_id, disciplina_id, nota: valor, bimestre, observacao } = nota;
 
     const [result] = await db.execute(
-      'UPDATE notas SET aluno_id = ?, disciplina_id = ?, nota = ?, bimestre = ?, observacao = ? WHERE id = ?',
-      [aluno_id, disciplina_id, valor, bimestre, observacao, id]
+      `UPDATE notas 
+       SET aluno_id = ?, disciplina_id = ?, nota = ?, bimestre = ?, observacao = ?
+       WHERE id = ?`,
+      [
+        aluno_id ?? null,
+        disciplina_id ?? null,
+        valor ?? null,
+        bimestre ?? null,
+        observacao ?? null,
+        id
+      ]
     );
+
     return result;
   },
   

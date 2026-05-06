@@ -1,4 +1,3 @@
-
 let professores = [];
 
 function listar(req, res) {
@@ -7,7 +6,9 @@ function listar(req, res) {
 
 function buscarPorId(req, res) {
   const prof = professores.find(p => p.id == req.params.id);
-  res.json(prof || { erro: "Não encontrado" });
+  if (!prof) return res.status(404).json({ erro: "Não encontrado" });
+
+  res.json(prof);
 }
 
 function criar(req, res) {
@@ -15,21 +16,29 @@ function criar(req, res) {
     id: Date.now(),
     ...req.body
   };
+
   professores.push(novo);
-  res.json(novo);
+
+  // 🔥 CORREÇÃO AQUI
+  res.status(201).json(novo);
 }
 
 function atualizar(req, res) {
   const index = professores.findIndex(p => p.id == req.params.id);
-  if (index === -1) return res.status(404).json({ erro: "Não encontrado" });
+
+  if (index === -1) {
+    return res.status(404).json({ erro: "Não encontrado" });
+  }
 
   professores[index] = { ...professores[index], ...req.body };
+
   res.json(professores[index]);
 }
 
 function deletar(req, res) {
   professores = professores.filter(p => p.id != req.params.id);
-  res.json({ mensagem: "Deletado" });
+
+  res.status(200).json({ mensagem: "Deletado" });
 }
 
 module.exports = {

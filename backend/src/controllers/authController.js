@@ -11,52 +11,73 @@ const authController = {
     try {
       const { nome, email, senha, perfil } = req.body;
 
+      // VALIDAÇÃO
       if (!nome || !email || !senha) {
-        return res.status(400).json({ msg: "Nome, email e senha são obrigatórios" })
+        return res.status(400).json({ error: "Nome, email e senha são obrigatórios" });
       }
 
       conn = await db.getConnection();
 
-      const [rows] = await conn.query("SELECT * FROM usuarios WHERE email = ?", [email]);
+      const [rows] = await conn.query(
+        "SELECT * FROM usuarios WHERE email = ?",
+        [email]
+      );
 
       if (rows.length > 0) {
-        return res.status(400).json({ msg: "Email já cadastrado" })
+        return res.status(400).json({ error: "Email já cadastrado" });
       }
 
       const senhaCriptografada = await bcrypt.hash(senha, 10);
 
-      await conn.query(`INSERT INTO usuarios (nome, email, senha, perfil) VALUES (?, ?, ?, ?)`, [nome, email, senhaCriptografada, perfil || "admin"]);
+      await conn.query(
+        `INSERT INTO usuarios (nome, email, senha, perfil) VALUES (?, ?, ?, ?)`,
+        [nome, email, senhaCriptografada, perfil || "admin"]
+      );
 
-      res.status(201).json({ msg: "Usuário criado com sucesso" })
+      return res.status(201).json({
+        message: "Usuário registrado com sucesso"
+      });
+
     } catch (error) {
-      res.status(500).json({ msg: "Erro ao registrar", error: error.message })
+      return res.status(500).json({
+        error: "Erro ao registrar",
+        details: error.message
+      });
     } finally {
       if (conn) conn.release();
     }
   },
+
   async login(req, res) {
     try {
       const { email, senha } = req.body;
 
-      // Validação básica de entrada
+      // VALIDAÇÃO
       if (!email || !senha) {
-        return res.status(400).json({ msg: "Email e senha são obrigatórios" });
+        return res.status(400).json({
+          error: "Email e senha são obrigatórios"
+        });
       }
 
-      // Busca o usuário através do Model
       const usuario = await usuarioModel.buscarPorEmail(email);
 
+      // USUÁRIO NÃO EXISTE
       if (!usuario) {
-        return res.status(400).json({ msg: "Senha ou usuário não encontrado" });
+        return res.status(401).json({
+          error: "Email ou senha inválidos"
+        });
       }
 
-      // Validação da senha
       const senhaValida = await bcrypt.compare(senha, usuario.senha);
+
+      // SENHA ERRADA
       if (!senhaValida) {
-        return res.status(401).json({ msg: "Senha inválida" });
+        return res.status(401).json({
+          error: "Email ou senha inválidos"
+        });
       }
 
-      // Geração do Token
+      // TOKEN
       const token = jwt.sign(
         {
           id: usuario.id,
@@ -67,13 +88,22 @@ const authController = {
         { expiresIn: "8h" }
       );
 
-      return res.json({ msg: "Login realizado com sucesso", token });
+      // RESPOSTA CORRETA (igual ao teste espera)
+      return res.status(200).json({
+        token,
+        usuario: {
+          id: usuario.id,
+          nome: usuario.nome,
+          email: usuario.email
+        }
+      });
 
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ msg: "Erro no servidor durante o login" });
+      return res.status(500).json({
+        error: "Erro no servidor durante o login"
+      });
     }
   }
-}
+};
 
 module.exports = authController;
