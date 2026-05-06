@@ -11,10 +11,31 @@ const notaRoutes = require('./routes/notaRoutes');
 
 const app = express();
 
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://sistema-de-escola.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "ngrok-skip-browser-warning"
+  ]
+}));
+
+app.get("/", (req, res) => {
+  res.status(200).json({ msg: "Api funcionando" });
+});
+
+app.get("/teste", (req, res) => {
+  res.status(200).json({ ok: true });
+});
+
 app.use(cors());
 app.use(express.json());
 
-// ROTAS (SEM /api)
+
 app.use('/auth', authRoutes);
 app.use('/usuarios', usuarioRoutes);
 app.use('/professores', professorRoutes);
