@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeloos | Finalizar Compra</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Finalize sua compra da pulseira localizadora Zeloos com segurança. Pagamento via cartão, PIX ou boleto.">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Fonte suave e moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%238B1E1E'/%3E%3Ccircle cx='50' cy='50' r='15' fill='%23C49A6C'/%3E%3C/svg%3E">
+    
+    <style>
+        /* Estilos adicionais para a página de compra */
+        .btn-voltar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all var(--transition-fast);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--gray-light);
+        }
+        
+        .btn-voltar:hover {
+            color: var(--primary);
+            border-color: var(--accent);
+            transform: translateX(-5px);
+        }
+        
+        .produto-imagem-resumo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .miniatura {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-gold);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .produto-detalhe {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .subtotal, .desconto {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        .desconto {
+            color: var(--success);
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .total {
+            display: flex;
+            justify-content: space-between;
+            margin: 25px 0;
+            padding: 20px 0;
+            border-top: 2px solid var(--accent);
+            border-bottom: 2px solid var(--accent);
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .selos-seguranca {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .selos-seguranca i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        .resumo-entrega {
+            background: rgba(196, 154, 108, 0.1);
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 25px;
+        }
+        
+        .frete-gratis {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--success);
+            font-size: 1.1rem;
+        }
+        
+        .prazo-entrega {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-top: 10px;
+            padding-left: 30px;
+        }
+        
+        .formulario-entrega {
+            background: var(--white);
+            padding: 35px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .formulario-entrega h2 {
+            font-size: 1.4rem;
+            margin: 30px 0 20px;
+        }
+        
+        .formulario-entrega h2:first-of-type {
+            margin-top: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all var(--transition-fast);
+            background: var(--white);
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(196, 154, 108, 0.2);
+        }
+        
+        .form-group input.error {
+            border-color: var(--error);
+            animation: shake 0.5s;
+        }
+        
+        .form-group input[readonly] {
+            background: var(--cream);
+            cursor: default;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .cep-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .cep-input {
+            flex: 1;
+        }
+        
+        .btn-cep {
+            padding: 0 25px;
+            background: var(--gradient-gold);
+            border: none;
+            border-radius: var(--radius-md);
+            color: var(--primary-dark);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
+        }
+        
+        .btn-cep:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-cep:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagamento-opcoes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .pagamento-option {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .pagamento-option input {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .pagamento-option span {
+            display: block;
+            padding: 16px;
+            text-align: center;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+            font-weight: 500;
+        }
+        
+        .pagamento-option input:checked + span {
+            background: var(--gradient-burgundy);
+            color: var(--white);
+            border-color: transparent;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pagamento-area {
+            background: var(--cream);
+            padding: 25px;
+            border-radius: var(--radius-lg);
+            margin: 25px 0;
+            border: 2px solid rgba(196, 154, 108, 0.3);
+        }
+        
+        .pagamento-area.hidden {
+            display: none;
+        }
+        
+        .parcelas-info {
+            background: var(--white);
+            padding: 15px;
+            border-radius: var(--radius-md);
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .bandeiras-aceitas {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            color: var(--text-light);
+            font-size: 1.5rem;
+        }
+        
+        .pix-container {
+            text-align: center;
+        }
+        
+        .pix-timer {
+            background: var(--gradient-burgundy);
+            color: var(--white);
+            padding: 15px;
+            border-radius: var(--radius-md);
+            margin-bottom: 25px;
+            font-weight: 500;
+            animation: pulse 2s infinite;
+        }
+        
+        .qrcode-real {
+            max-width: 200px;
+            margin: 20px auto;
+            display: block;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .pix-codigo {
+            background: var(--white);
+            padding: 15px;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .btn-copiar {
+            background: var(--gradient-gold);
+            color: var(--primary-dark);
+            border: none;
+            padding: 12px 30px;
+            border-radius: var(--radius-full);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-copiar:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pix-info {
+            margin-top: 20px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        .pix-desconto {
+            color: var(--success);
+            font-weight: 500;
+        }
+        
+        .boleto-container {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .boleto-container i.fa-barcode {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .boleto-vencimento {
+            font-weight: 500;
+            color: var(--primary);
+            margin: 15px 0;
+        }
+        
+        .boleto-info {
+            background: var(--error-light);
+            padding: 15px;
+            border-radius: var(--radius-md);
+            color: var(--error);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .btn-finalizar {
+            width: 100%;
+            padding: 18px;
+            background: var(--gradient-burgundy);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-full);
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-bounce);
+            margin-top: 20px;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .btn-finalizar:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-xl);
+            background: var(--gradient-gold);
+            color: var(--primary-dark);
+        }
+        
+        .btn-finalizar:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .termos-aceite {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .termos-aceite a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+        
+        .termos-aceite a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            position: relative;
+            background: linear-gradient(135deg, var(--white) 0%, var(--cream) 100%);
+            margin: 50px auto;
+            padding: 40px;
+            max-width: 600px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            animation: modalSlideUp 0.5s;
+        }
+        
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: color var(--transition-fast);
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close:hover {
+            color: var(--error);
+            background: rgba(0,0,0,0.05);
+        }
+        
+        .comprovante-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .comprovante-header i {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 15px;
+        }
+        
+        .comprovante-info {
+            background: var(--cream);
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            margin: 20px 0;
+            border: 2px solid var(--accent);
+        }
+        
+        .comprovante-info p {
+            margin: 10px 0;
+        }
+        
+        .produto-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            margin: 15px 0;
+        }
+        
+        .produto-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-gold);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+        }
+        
+        .desconto-aplicado {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background: var(--success-light);
+            border-radius: var(--radius-md);
+            color: var(--success);
+            margin: 10px 0;
+        }
+        
+        .comprovante-endereco {
+            background: var(--cream);
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+        
+        .comprovante-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background: var(--gradient-burgundy);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            font-size: 1.4rem;
+            margin: 20px 0;
+        }
+        
+        .comprovante-footer {
+            text-align: center;
+        }
+        
+        .comprovante-footer p {
+            margin: 10px 0;
+        }
+        
+        .comprovante-footer .small {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .comprovante-acoes {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        
+        .btn-imprimir, .btn-compartilhar {
+            padding: 12px 25px;
+            border: 2px solid var(--accent);
+            background: transparent;
+            border-radius: var(--radius-full);
+            color: var(--primary);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-imprimir:hover, .btn-compartilhar:hover {
+            background: var(--gradient-gold);
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .feedback-message {
+            padding: 10px;
+            border-radius: var(--radius-md);
+            margin-top: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .success-feedback {
+            background: var(--success-light);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        
+        .error-feedback {
+            background: var(--error-light);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        @media (max-width: 968px) {
+            .compra-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .resumo-pedido {
+                position: static;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .pagamento-opcoes {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 20px;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/5511999999999?text=Olá!%20Tenho%20dúvidas%20sobre%20minha%20compra" 
+       class="whatsapp-float" 
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+    </a>
+
+    <div class="container">
+        <header>
+            <div class="navbar">
+                <a href="index.html" class="logo" aria-label="Zeloos - Página inicial">zeloos<span>.</span></a>
+                <a href="index.html" class="btn-voltar" aria-label="Voltar para página inicial">
+                    <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                    <span>voltar</span>
+                </a>
+            </div>
+        </header>
+
+        <main>
+            <section class="pagina-compra" aria-label="Finalizar compra">
+                <h1>finalizar pedido</h1>
+                
+                <div class="compra-grid">
+                    <!-- Resumo do pedido -->
+                    <div class="resumo-pedido" aria-label="Resumo do pedido">
+                        <h2>🛍️ seu pedido</h2>
+                        <div class="produto-resumo" id="produto-resumo">
+                            <!-- JavaScript vai preencher -->
+                        </div>
+                        
+                        <!-- Resumo de entrega -->
+                        <div class="resumo-entrega">
+                            <p class="frete-gratis">
+                                <i class="fas fa-truck" aria-hidden="true"></i>
+                                <strong>frete grátis</strong> para todo Brasil
+                            </p>
+                            <p class="prazo-entrega">entrega em 3-5 dias úteis</p>
+                        </div>
+                        
+                        <div class="total">
+                            <span>total</span>
+                            <span id="valor-total" aria-live="polite">R$ 0</span>
+                        </div>
+                        
+                        <div class="selos-seguranca">
+                            <i class="fas fa-lock" aria-hidden="true"></i>
+                            <span>compra segura</span>
+                            <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                            <span>dados protegidos</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Formulário de entrega -->
+                    <div class="formulario-entrega">
+                        <h2>📦 dados de entrega</h2>
+                        
+                        <form id="formCompra" novalidate>
+                            <div class="form-group">
+                                <label for="nome" class="sr-only">Nome completo</label>
+                                <input type="text" id="nome" placeholder="nome completo *" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cpf" class="sr-only">CPF</label>
+                                <input type="text" id="cpf" placeholder="CPF *" maxlength="14" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="sr-only">E-mail</label>
+                                <input type="email" id="email" placeholder="e-mail *" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="telefone" class="sr-only">Telefone</label>
+                                <input type="tel" id="telefone" placeholder="telefone *" maxlength="15" required>
+                            </div>
+                            
+                            <div class="cep-group">
+                                <div class="form-group cep-input">
+                                    <label for="cep" class="sr-only">CEP</label>
+                                    <input type="text" id="cep" placeholder="CEP *" maxlength="9" required>
+                                </div>
+                                <button type="button" id="buscarCep" class="btn-cep" aria-label="Buscar CEP">buscar</button>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="rua" class="sr-only">Rua</label>
+                                <input type="text" id="rua" placeholder="rua *" readonly required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="numero" class="sr-only">Número</label>
+                                    <input type="text" id="numero" placeholder="número *" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="complemento" class="sr-only">Complemento</label>
+                                    <input type="text" id="complemento" placeholder="complemento">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bairro" class="sr-only">Bairro</label>
+                                <input type="text" id="bairro" placeholder="bairro *" readonly required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cidade" class="sr-only">Cidade</label>
+                                    <input type="text" id="cidade" placeholder="cidade *" readonly required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="uf" class="sr-only">UF</label>
+                                    <input type="text" id="uf" placeholder="UF *" readonly required>
+                                </div>
+                            </div>
+                            
+                            <h2>💳 pagamento</h2>
+                            
+                            <!-- Opções de pagamento -->
+                            <div class="pagamento-opcoes" role="radiogroup" aria-label="Opções de pagamento">
+                                <label class="pagamento-option">
+                                    <input type="radio" name="pagamento" value="cartao" checked>
+                                    <span>💳 cartão</span>
+                                </label>
+                                <label class="pagamento-option">
+                                    <input type="radio" name="pagamento" value="pix" id="pixRadio">
+                                    <span>📱 pix (5% off)</span>
+                                </label>
+                                <label class="pagamento-option">
+                                    <input type="radio" name="pagamento" value="boleto">
+                                    <span>📄 boleto</span>
+                                </label>
+                            </div>
+                            
+                            <!-- Área do cartão -->
+                            <div id="cartao-area" class="pagamento-area">
+                                <div class="form-group">
+                                    <label for="cartaoNumero" class="sr-only">Número do cartão</label>
+                                    <input type="text" id="cartaoNumero" placeholder="número do cartão *" maxlength="19">
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="cartaoValidade" class="sr-only">Validade</label>
+                                        <input type="text" id="cartaoValidade" placeholder="validade (MM/AA) *" maxlength="5">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cartaoCvv" class="sr-only">CVV</label>
+                                        <input type="text" id="cartaoCvv" placeholder="CVV *" maxlength="4">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="cartaoNome" class="sr-only">Nome no cartão</label>
+                                    <input type="text" id="cartaoNome" placeholder="nome no cartão *">
+                                </div>
+                                
+                                <!-- Opções de parcelamento -->
+                                <div class="parcelas-info">
+                                    <i class="fas fa-info-circle" aria-hidden="true"></i>
+                                    <span id="parcelasTexto">até 12x sem juros de R$ 24,91</span>
+                                </div>
+                                
+                                <div class="bandeiras-aceitas">
+                                    <span>bandeiras aceitas:</span>
+                                    <i class="fab fa-cc-visa" aria-label="Visa"></i>
+                                    <i class="fab fa-cc-mastercard" aria-label="Mastercard"></i>
+                                    <i class="fab fa-cc-amex" aria-label="American Express"></i>
+                                    <i class="fab fa-cc-elo" aria-label="Elo"></i>
+                                </div>
+                            </div>
+                            
+                            <!-- Área do PIX -->
+                            <div id="pix-area" class="pagamento-area hidden">
+                                <div class="pix-container">
+                                    <div class="pix-timer" id="pixTimer" aria-live="polite">
+                                        ⏰ pagamento PIX expira em 15:00
+                                    </div>
+                                    
+                                    <h3>escaneie o QR Code</h3>
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=000201010212261060014br.gov.bcb.pix0136123e4567-e89b-12d3-a456-4266141740005204000053039865802BR5925Zeloos%20Pulseiras%20LTDA6009Sao%20Paulo62070503***6304D2B5" 
+                                         alt="QR Code PIX para pagamento" 
+                                         class="qrcode-real"
+                                         loading="lazy">
+                                    
+                                    <div class="pix-codigo">
+                                        <strong>código pix:</strong><br>
+                                        <span id="pixCodigo">123e4567-e89b-12d3-a456-426614174000</span>
+                                    </div>
+                                    
+                                    <button type="button" class="btn-copiar" id="copiarPix" aria-label="Copiar código PIX">
+                                        📋 copiar código
+                                    </button>
+                                    
+                                    <p class="pix-info">
+                                        <i class="fas fa-clock" aria-hidden="true"></i>
+                                        após o pagamento, seu pedido será confirmado automaticamente
+                                    </p>
+                                    
+                                    <p class="pix-info pix-desconto">
+                                        <i class="fas fa-gift" aria-hidden="true"></i>
+                                        5% de desconto aplicado!
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Área do Boleto -->
+                            <div id="boleto-area" class="pagamento-area hidden">
+                                <div class="boleto-container">
+                                    <i class="fas fa-barcode" aria-hidden="true"></i>
+                                    <p>O boleto será gerado após a confirmação do pedido</p>
+                                    <p class="boleto-vencimento">Vencimento em 3 dias úteis</p>
+                                    <div class="boleto-info">
+                                        <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                                        <span>O pagamento pode levar até 3 dias para ser confirmado</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn-finalizar" id="btnFinalizar">
+                                finalizar compra
+                            </button>
+                            
+                            <p class="termos-aceite">
+                                Ao finalizar, você concorda com nossos 
+                                <a href="termos.html" target="_blank">termos de uso</a> e 
+                                <a href="privacidade.html" target="_blank">política de privacidade</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Modal de Comprovante -->
+        <div id="modalComprovante" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-content">
+                <button class="close" aria-label="Fechar">&times;</button>
+                <div class="comprovante">
+                    <div class="comprovante-header">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <h2 id="modal-title">pedido confirmado!</h2>
+                        <p>agradecemos pela confiança</p>
+                    </div>
+                    
+                    <div class="comprovante-info">
+                        <p><strong>📋 nº do pedido:</strong> <span id="numPedido"></span></p>
+                        <p><strong>📅 data:</strong> <span id="dataPedido"></span></p>
+                        <p><strong>💳 pagamento:</strong> <span id="tipoPagamento"></span></p>
+                    </div>
+                    
+                    <div class="comprovante-produto" id="comprovante-produto">
+                        <!-- JS preenche -->
+                    </div>
+                    
+                    <div class="comprovante-endereco" id="comprovante-endereco">
+                        <!-- JS preenche -->
+                    </div>
+                    
+                    <div class="comprovante-total">
+                        <strong>total:</strong> <span id="comprovante-total"></span>
+                    </div>
+                    
+                    <div class="comprovante-footer">
+                        <p>💙 obrigado por escolher a zeloos!</p>
+                        <p class="small">em breve você receberá o código de rastreio por e-mail</p>
+                        <div class="comprovante-acoes">
+                            <button class="btn-imprimir" onclick="window.print()" aria-label="Imprimir comprovante">
+                                <i class="fas fa-print" aria-hidden="true"></i> imprimir
+                            </button>
+                            <button class="btn-compartilhar" id="btnCompartilhar" aria-label="Compartilhar">
+                                <i class="fas fa-share-alt" aria-hidden="true"></i> compartilhar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 zeloos — tecnologia que cuida de quem importa</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="script.js" defer></script>
+</body>
+</html>

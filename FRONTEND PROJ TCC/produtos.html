@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha sua Pulseira - SafeTrack</title>
+    <link rel="stylesheet" href="produtos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📍</text></svg>">
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-location-dot"></i>
+                    <span>SafeTrack</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="index.html#como-funciona" class="nav-link">Como Funciona</a>
+                <a href="index.html#beneficios" class="nav-link">Benefícios</a>
+                <a href="produtos.html" class="nav-link active">Modelos</a>
+                <a href="compra.html" class="nav-btn">
+                    <i class="fas fa-shopping-cart"></i> Finalizar Compra
+                </a>
+            </div>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Header Produtos -->
+    <header class="produtos-header">
+        <div class="container">
+            <div class="header-content">
+                <h1>Escolha a Pulseira Perfeita</h1>
+                <p>Selecione o modelo ideal para a segurança da sua família</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Seleção de Modelos -->
+    <section class="selecao-modelos">
+        <div class="container">
+            <div class="selecao-header">
+                <h2>Nossos Modelos</h2>
+                <p>Cada pulseira é projetada para necessidades específicas</p>
+            </div>
+
+            <!-- Filtros -->
+            <div class="filtros">
+                <div class="filtro-tags">
+                    <button class="filtro-tag active" data-modelo="todos">Todos</button>
+                    <button class="filtro-tag" data-modelo="kids">Kids</button>
+                    <button class="filtro-tag" data-modelo="adulto">Adulto</button>
+                    <button class="filtro-tag" data-modelo="pet">Pet</button>
+                </div>
+            </div>
+
+            <!-- Grid de Produtos -->
+            <div class="produtos-grid">
+                <!-- Produto 1 - Kids -->
+                <div class="produto-card" data-modelo="kids">
+                    <div class="produto-badge">Mais Popular</div>
+                    <div class="produto-imagem">
+                        <img src="https://images.unsplash.com/photo-1596703923338-48f1c07e4f2e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SafeTrack Kids">
+                        <div class="produto-overlay">
+                            <button class="btn-visualizar" data-produto="kids">
+                                <i class="fas fa-expand"></i> Visualizar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="produto-info">
+                        <h3>SafeTrack Kids</h3>
+                        <p class="produto-descricao">Perfeita para crianças, com design colorido e materiais seguros.</p>
+                        <div class="produto-features">
+                            <span><i class="fas fa-check"></i> Design infantil</span>
+                            <span><i class="fas fa-check"></i> À prova d'água</span>
+                            <span><i class="fas fa-check"></i> Geofence</span>
+                            <span><i class="fas fa-check"></i> 5 dias bateria</span>
+                        </div>
+                        <div class="produto-preco">
+                            <span class="preco-atual">R$ 249,90</span>
+                            <span class="preco-parcelado">ou 10x de R$ 24,99</span>
+                        </div>
+                        <div class="produto-actions">
+                            <button class="btn btn-selecionar" data-produto="kids">
+                                <i class="fas fa-shopping-cart"></i> Selecionar
+                            </button>
+                            <a href="compra.html?modelo=kids" class="btn btn-comprar">
+                                Comprar Agora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produto 2 - Adulto -->
+                <div class="produto-card" data-modelo="adulto">
+                    <div class="produto-badge">Premium</div>
+                    <div class="produto-imagem">
+                        <img src="https://images.unsplash.com/photo-1584917865447-5d7a8b7d8596?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SafeTrack Adulto">
+                        <div class="produto-overlay">
+                            <button class="btn-visualizar" data-produto="adulto">
+                                <i class="fas fa-expand"></i> Visualizar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="produto-info">
+                        <h3>SafeTrack Adulto</h3>
+                        <p class="produto-descricao">Para adultos e idosos, com botão de emergência e monitoramento 24h.</p>
+                        <div class="produto-features">
+                            <span><i class="fas fa-check"></i> Botão emergência</span>
+                            <span><i class="fas fa-check"></i> Monitor 24/7</span>
+                            <span><i class="fas fa-check"></i> Resistente água</span>
+                            <span><i class="fas fa-check"></i> 7 dias bateria</span>
+                        </div>
+                        <div class="produto-preco">
+                            <span class="preco-atual">R$ 299,90</span>
+                            <span class="preco-parcelado">ou 10x de R$ 29,99</span>
+                        </div>
+                        <div class="produto-actions">
+                            <button class="btn btn-selecionar" data-produto="adulto">
+                                <i class="fas fa-shopping-cart"></i> Selecionar
+                            </button>
+                            <a href="compra.html?modelo=adulto" class="btn btn-comprar">
+                                Comprar Agora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produto 3 - Pet -->
+                <div class="produto-card" data-modelo="pet">
+                    <div class="produto-imagem">
+                        <img src="https://images.unsplash.com/photo-1553545204-5336d2207f64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SafeTrack Pet">
+                        <div class="produto-overlay">
+                            <button class="btn-visualizar" data-produto="pet">
+                                <i class="fas fa-expand"></i> Visualizar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="produto-info">
+                        <h3>SafeTrack Pet</h3>
+                        <p class="produto-descricao">Coleira inteligente para seu pet nunca mais se perder.</p>
+                        <div class="produto-features">
+                            <span><i class="fas fa-check"></i> Coleira ajustável</span>
+                            <span><i class="fas fa-check"></i> À prova d'água</span>
+                            <span><i class="fas fa-check"></i> Leve e resistente</span>
+                            <span><i class="fas fa-check"></i> 10 dias bateria</span>
+                        </div>
+                        <div class="produto-preco">
+                            <span class="preco-atual">R$ 199,90</span>
+                            <span class="preco-parcelado">ou 10x de R$ 19,99</span>
+                        </div>
+                        <div class="produto-actions">
+                            <button class="btn btn-selecionar" data-produto="pet">
+                                <i class="fas fa-shopping-cart"></i> Selecionar
+                            </button>
+                            <a href="compra.html?modelo=pet" class="btn btn-comprar">
+                                Comprar Agora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparação de Modelos -->
+    <section class="comparacao">
+        <div class="container">
+            <div class="comparacao-header">
+                <h2>Comparação de Modelos</h2>
+                <p>Veja as diferenças entre cada pulseira</p>
+            </div>
+            
+            <div class="tabela-comparacao">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Kids</th>
+                            <th>Adulto</th>
+                            <th>Pet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Preço</td>
+                            <td>R$ 249,90</td>
+                            <td>R$ 299,90</td>
+                            <td>R$ 199,90</td>
+                        </tr>
+                        <tr>
+                            <td>Bateria</td>
+                            <td>5 dias</td>
+                            <td>7 dias</td>
+                            <td>10 dias</td>
+                        </tr>
+                        <tr>
+                            <td>Resistência à Água</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Botão de Emergência</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-times"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Geofence</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Material</td>
+                            <td>Hipoalergênico</td>
+                            <td>Silicone Premium</td>
+                            <td>Nylon Resistente</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Produto Selecionado -->
+    <section class="produto-detalhe">
+        <div class="container">
+            <div class="detalhe-container">
+                <div class="detalhe-imagem">
+                    <div class="imagem-principal">
+                        <img id="produto-img" src="https://images.unsplash.com/photo-1596703923338-48f1c07e4f2e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Produto Selecionado">
+                    </div>
+                    <div class="imagens-mini">
+                        <div class="mini-img active" data-img="kids">
+                            <img src="https://images.unsplash.com/photo-1596703923338-48f1c07e4f2e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Kids">
+                        </div>
+                        <div class="mini-img" data-img="adulto">
+                            <img src="https://images.unsplash.com/photo-1584917865447-5d7a8b7d8596?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Adulto">
+                        </div>
+                        <div class="mini-img" data-img="pet">
+                            <img src="https://images.unsplash.com/photo-1553545204-5336d2207f64?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Pet">
+                        </div>
+                    </div>
+                </div>
+                <div class="detalhe-info">
+                    <h2 id="produto-nome">SafeTrack Kids</h2>
+                    <div class="produto-rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-text">4.5 (128 avaliações)</span>
+                    </div>
+                    <p id="produto-desc" class="produto-desc">
+                        Pulseira de localização projetada especialmente para crianças. 
+                        Material hipoalergênico, design colorido e divertido, com todas 
+                        as funcionalidades de segurança.
+                    </p>
+                    
+                    <div class="produto-especificacoes">
+                        <h3>Especificações</h3>
+                        <ul id="produto-specs">
+                            <li><strong>Bateria:</strong> Até 5 dias de uso</li>
+                            <li><strong>Material:</strong> Silicone hipoalergênico</li>
+                            <li><strong>Conectividade:</strong> GPS + WiFi + Bluetooth</li>
+                            <li><strong>Resistência:</strong> Água (IP68)</li>
+                            <li><strong>Tamanho:</strong> Ajustável (14-18 cm)</li>
+                            <li><strong>Peso:</strong> Apenas 25g</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="produto-preco-detalhe">
+                        <div class="preco-principal">
+                            <span id="produto-preco" class="preco">R$ 249,90</span>
+                            <span class="parcelamento">ou 10x de R$ 24,99</span>
+                        </div>
+                        <div class="estoque">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Em estoque • Entrega em 5-7 dias úteis</span>
+                        </div>
+                    </div>
+                    
+                    <div class="produto-acoes-detalhe">
+                        <div class="quantidade">
+                            <button class="qtd-btn" id="qtd-minus">-</button>
+                            <span id="qtd-value">1</span>
+                            <button class="qtd-btn" id="qtd-plus">+</button>
+                            <span class="qtd-label">unidade(s)</span>
+                        </div>
+                        <div class="botoes-acao">
+                            <a href="compra.html" class="btn btn-comprar-detalhe">
+                                <i class="fas fa-shopping-cart"></i> Comprar Agora
+                            </a>
+                            <button class="btn btn-favorito">
+                                <i class="far fa-heart"></i> Favoritar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="garantia">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Garantia de 1 ano • Troca em 30 dias • Suporte 24/7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-location-dot"></i>
+                        <span>SafeTrack</span>
+                    </a>
+                    <p>Tecnologia para segurança familiar</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Produto</h4>
+                        <a href="#modelos">Modelos</a>
+                        <a href="index.html#como-funciona">Como Funciona</a>
+                        <a href="index.html#beneficios">Benefícios</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Empresa</h4>
+                        <a href="#">Sobre Nós</a>
+                        <a href="#">Contato</a>
+                        <a href="#">Blog</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Suporte</h4>
+                        <a href="#">FAQ</a>
+                        <a href="#">Política de Privacidade</a>
+                        <a href="#">Termos de Uso</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 SafeTrack. Projeto de TCC - Tecnologia em Sistemas para Internet.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Visualização -->
+    <div class="modal" id="modal-produto">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-imagem">
+                <img id="modal-img" src="" alt="Produto">
+            </div>
+        </div>
+    </div>
+
+    <script src="produtos.js"></script>
+</body>
+</html>

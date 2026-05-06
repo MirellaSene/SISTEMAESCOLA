@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra - SafeTrack</title>
+    <link rel="stylesheet" href="compra.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📍</text></svg>">
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-location-dot"></i>
+                    <span>SafeTrack</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="produtos.html" class="nav-link">Produtos</a>
+                <a href="index.html#como-funciona" class="nav-link">Como Funciona</a>
+                <a href="compra.html" class="nav-link active">Finalizar Compra</a>
+                <div class="carrinho-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="carrinho-count">1</span>
+                </div>
+            </div>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Processo de Compra -->
+    <main class="compra-container">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="index.html">Início</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="produtos.html">Produtos</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Finalizar Compra</span>
+            </div>
+
+            <div class="compra-content">
+                <!-- Coluna da Esquerda - Formulários -->
+                <div class="compra-form">
+                    <!-- Progresso da Compra -->
+                    <div class="progresso-compra">
+                        <div class="progresso-step active">
+                            <div class="step-number">1</div>
+                            <div class="step-info">
+                                <span class="step-title">Carrinho</span>
+                                <span class="step-desc">Seus produtos</span>
+                            </div>
+                        </div>
+                        <div class="progresso-step active">
+                            <div class="step-number">2</div>
+                            <div class="step-info">
+                                <span class="step-title">Entrega</span>
+                                <span class="step-desc">Endereço e frete</span>
+                            </div>
+                        </div>
+                        <div class="progresso-step">
+                            <div class="step-number">3</div>
+                            <div class="step-info">
+                                <span class="step-title">Pagamento</span>
+                                <span class="step-desc">Forma de pagamento</span>
+                            </div>
+                        </div>
+                        <div class="progresso-step">
+                            <div class="step-number">4</div>
+                            <div class="step-info">
+                                <span class="step-title">Confirmação</span>
+                                <span class="step-desc">Revisar e finalizar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seção de Entrega -->
+                    <section class="form-section" id="entrega">
+                        <h2><i class="fas fa-truck"></i> Dados de Entrega</h2>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="nome">Nome Completo *</label>
+                                <input type="text" id="nome" placeholder="Digite seu nome completo" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">E-mail *</label>
+                                <input type="email" id="email" placeholder="seu@email.com" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="telefone">Telefone *</label>
+                                <input type="tel" id="telefone" placeholder="(11) 99999-9999" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cpf">CPF *</label>
+                                <input type="text" id="cpf" placeholder="000.000.000-00" required>
+                            </div>
+                        </div>
+                        
+                        <h3>Endereço de Entrega</h3>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="cep">CEP *</label>
+                                <div class="cep-container">
+                                    <input type="text" id="cep" placeholder="00000-000" required>
+                                    <button type="button" class="btn-cep" id="buscar-cep">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="endereco">Endereço *</label>
+                                <input type="text" id="endereco" placeholder="Rua, Avenida, etc" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="numero">Número *</label>
+                                <input type="text" id="numero" placeholder="123" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="complemento">Complemento</label>
+                                <input type="text" id="complemento" placeholder="Apto, Sala, etc">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bairro">Bairro *</label>
+                                <input type="text" id="bairro" placeholder="Bairro" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cidade">Cidade *</label>
+                                <input type="text" id="cidade" placeholder="Cidade" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="estado">Estado *</label>
+                                <select id="estado" required>
+                                    <option value="">Selecione</option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Seção de Frete -->
+                    <section class="form-section" id="frete">
+                        <h2><i class="fas fa-shipping-fast"></i> Opções de Frete</h2>
+                        
+                        <div class="opcoes-frete">
+                            <div class="opcao-frete selected">
+                                <div class="frete-radio">
+                                    <input type="radio" name="frete" id="frete-padrao" checked>
+                                    <label for="frete-padrao"></label>
+                                </div>
+                                <div class="frete-info">
+                                    <span class="frete-nome">Entrega Padrão</span>
+                                    <span class="frete-prazo">5-7 dias úteis</span>
+                                </div>
+                                <div class="frete-preco">R$ 19,90</div>
+                            </div>
+                            
+                            <div class="opcao-frete">
+                                <div class="frete-radio">
+                                    <input type="radio" name="frete" id="frete-expresso">
+                                    <label for="frete-expresso"></label>
+                                </div>
+                                <div class="frete-info">
+                                    <span class="frete-nome">Entrega Expressa</span>
+                                    <span class="frete-prazo">2-3 dias úteis</span>
+                                </div>
+                                <div class="frete-preco">R$ 39,90</div>
+                            </div>
+                            
+                            <div class="opcao-frete">
+                                <div class="frete-radio">
+                                    <input type="radio" name="frete" id="frete-gratis">
+                                    <label for="frete-gratis"></label>
+                                </div>
+                                <div class="frete-info">
+                                    <span class="frete-nome">Retirada na Loja</span>
+                                    <span class="frete-prazo">Disponível em 1 dia</span>
+                                </div>
+                                <div class="frete-preco">Grátis</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Seção de Pagamento -->
+                    <section class="form-section" id="pagamento">
+                        <h2><i class="fas fa-credit-card"></i> Forma de Pagamento</h2>
+                        
+                        <div class="metodos-pagamento">
+                            <div class="metodo-tabs">
+                                <button class="metodo-tab active" data-metodo="cartao">
+                                    <i class="fas fa-credit-card"></i> Cartão de Crédito
+                                </button>
+                                <button class="metodo-tab" data-metodo="pix">
+                                    <i class="fas fa-qrcode"></i> PIX
+                                </button>
+                                <button class="metodo-tab" data-metodo="boleto">
+                                    <i class="fas fa-barcode"></i> Boleto
+                                </button>
+                            </div>
+                            
+                            <!-- Cartão de Crédito -->
+                            <div class="metodo-content active" id="cartao-content">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="numero-cartao">Número do Cartão *</label>
+                                        <input type="text" id="numero-cartao" placeholder="0000 0000 0000 0000" maxlength="19">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="nome-cartao">Nome no Cartão *</label>
+                                        <input type="text" id="nome-cartao" placeholder="Como está no cartão">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="validade-cartao">Validade *</label>
+                                        <input type="text" id="validade-cartao" placeholder="MM/AA" maxlength="5">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="cvv-cartao">CVV *</label>
+                                        <input type="text" id="cvv-cartao" placeholder="123" maxlength="3">
+                                    </div>
+                                </div>
+                                
+                                <div class="parcelamento">
+                                    <label for="parcelas">Parcelamento</label>
+                                    <select id="parcelas">
+                                        <option value="1">1x de R$ 299,90 (à vista)</option>
+                                        <option value="2">2x de R$ 149,95</option>
+                                        <option value="3">3x de R$ 99,97</option>
+                                        <option value="4">4x de R$ 74,98</option>
+                                        <option value="5">5x de R$ 59,98</option>
+                                        <option value="6">6x de R$ 49,98</option>
+                                        <option value="7">7x de R$ 42,84</option>
+                                        <option value="8">8x de R$ 37,49</option>
+                                        <option value="9">9x de R$ 33,32</option>
+                                        <option value="10">10x de R$ 29,99</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- PIX -->
+                            <div class="metodo-content" id="pix-content">
+                                <div class="pix-info">
+                                    <div class="pix-qr">
+                                        <div class="qr-placeholder">
+                                            <i class="fas fa-qrcode"></i>
+                                            <span>QR CODE PIX</span>
+                                            <small>Será gerado após confirmação</small>
+                                        </div>
+                                    </div>
+                                    <div class="pix-detalhes">
+                                        <h4>Como pagar com PIX:</h4>
+                                        <ol>
+                                            <li>Finalize a compra</li>
+                                            <li>Escaneie o QR Code com seu app bancário</li>
+                                            <li>Confirme o pagamento</li>
+                                            <li>Receba a confirmação por e-mail</li>
+                                        </ol>
+                                        <div class="pix-beneficios">
+                                            <i class="fas fa-bolt"></i> Pagamento instantâneo
+                                        </div>
+                                        <div class="pix-beneficios">
+                                            <i class="fas fa-lock"></i> 100% seguro
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Boleto -->
+                            <div class="metodo-content" id="boleto-content">
+                                <div class="boleto-info">
+                                    <div class="boleto-icon">
+                                        <i class="fas fa-file-invoice-dollar"></i>
+                                    </div>
+                                    <div class="boleto-detalhes">
+                                        <h4>Pagamento por Boleto Bancário</h4>
+                                        <p>O boleto será gerado após a confirmação da compra e enviado para seu e-mail.</p>
+                                        <ul>
+                                            <li><i class="fas fa-clock"></i> Vencimento em 3 dias úteis</li>
+                                            <li><i class="fas fa-truck"></i> Entrega após confirmação do pagamento</li>
+                                            <li><i class="fas fa-print"></i> Pode ser pago em qualquer banco</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Botões de Navegação -->
+                    <div class="form-navigation">
+                        <a href="produtos.html" class="btn btn-voltar">
+                            <i class="fas fa-arrow-left"></i> Voltar aos Produtos
+                        </a>
+                        <button class="btn btn-continuar" id="continuar-pagamento">
+                            Continuar para Pagamento <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coluna da Direita - Resumo -->
+                <div class="compra-resumo">
+                    <div class="resumo-sticky">
+                        <h2><i class="fas fa-receipt"></i> Resumo do Pedido</h2>
+                        
+                        <!-- Produto no Carrinho -->
+                        <div class="resumo-produto">
+                            <div class="produto-imagem">
+                                <img id="resumo-produto-img" src="https://images.unsplash.com/photo-1584917865447-5d7a8b7d8596?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Produto">
+                            </div>
+                            <div class="produto-info">
+                                <h3 id="resumo-produto-nome">SafeTrack Adulto</h3>
+                                <div class="produto-variante">
+                                    <span>Cor: Preto</span>
+                                    <span>Quantidade: 1</span>
+                                </div>
+                                <div class="produto-preco">
+                                    <span id="resumo-produto-preco">R$ 299,90</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resumo de Valores -->
+                        <div class="resumo-valores">
+                            <div class="valor-item">
+                                <span>Subtotal</span>
+                                <span id="subtotal">R$ 299,90</span>
+                            </div>
+                            <div class="valor-item">
+                                <span>Frete</span>
+                                <span id="frete-valor">R$ 19,90</span>
+                            </div>
+                            <div class="valor-item desconto">
+                                <span>Desconto</span>
+                                <span>- R$ 0,00</span>
+                            </div>
+                            <div class="valor-item total">
+                                <span>Total</span>
+                                <span id="total">R$ 319,80</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Cupom de Desconto -->
+                        <div class="cupom-container">
+                            <div class="cupom-input">
+                                <input type="text" id="cupom" placeholder="Código do cupom">
+                                <button class="btn-cupom" id="aplicar-cupom">Aplicar</button>
+                            </div>
+                            <div class="cupom-sugestoes">
+                                <small>Tente: <span class="cupom-exemplo" data-cupom="SAFETRACK10">SAFETRACK10</span> para 10% off</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Informações de Segurança -->
+                        <div class="seguranca-info">
+                            <div class="seguranca-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Compra 100% segura</span>
+                            </div>
+                            <div class="seguranca-item">
+                                <i class="fas fa-lock"></i>
+                                <span>Dados protegidos</span>
+                            </div>
+                            <div class="seguranca-item">
+                                <i class="fas fa-undo"></i>
+                                <span>30 dias para troca</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Botão Finalizar -->
+                        <button class="btn btn-finalizar" id="finalizar-compra">
+                            <i class="fas fa-lock"></i> Finalizar Compra
+                        </button>
+                        
+                        <!-- Termos e Condições -->
+                        <div class="termos">
+                            <label class="termos-checkbox">
+                                <input type="checkbox" id="aceitar-termos">
+                                <span class="checkmark"></span>
+                                Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal" id="modal-confirmacao">
+        <div class="modal-content">
+            <div class="modal-confirmacao">
+                <div class="confirmacao-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Compra Confirmada!</h2>
+                <p>Obrigado por adquirir a SafeTrack. Sua pulseira será enviada em até 48 horas.</p>
+                
+                <div class="confirmacao-detalhes">
+                    <div class="detalhe-item">
+                        <i class="fas fa-receipt"></i>
+                        <div>
+                            <strong>Nº do Pedido</strong>
+                            <span id="numero-pedido">#ST2023001</span>
+                        </div>
+                    </div>
+                    <div class="detalhe-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Confirmação enviada para</strong>
+                            <span id="email-confirmacao">seu@email.com</span>
+                        </div>
+                    </div>
+                    <div class="detalhe-item">
+                        <i class="fas fa-qrcode"></i>
+                        <div>
+                            <strong>QR Code de Ativação</strong>
+                            <span>Disponível ao receber a pulseira</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="confirmacao-acoes">
+                    <a href="index.html" class="btn btn-confirmacao">
+                        <i class="fas fa-home"></i> Voltar ao Início
+                    </a>
+                    <button class="btn btn-confirmacao secundario" id="imprimir-recibo">
+                        <i class="fas fa-print"></i> Imprimir Recibo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-location-dot"></i>
+                        <span>SafeTrack</span>
+                    </a>
+                    <p>Tecnologia para segurança familiar</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Produto</h4>
+                        <a href="produtos.html">Modelos</a>
+                        <a href="index.html#como-funciona">Como Funciona</a>
+                        <a href="index.html#beneficios">Benefícios</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Suporte</h4>
+                        <a href="#">FAQ</a>
+                        <a href="#">Política de Privacidade</a>
+                        <a href="#">Termos de Uso</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Atendimento</h4>
+                        <a href="#">contato@safetrack.com</a>
+                        <a href="#">(11) 99999-9999</a>
+                        <a href="#">Chat Online</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 SafeTrack. Projeto de TCC - Tecnologia em Sistemas para Internet.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="compra.js"></script>
+</body>
+</html>
