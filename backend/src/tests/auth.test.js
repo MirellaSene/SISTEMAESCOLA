@@ -4,7 +4,7 @@ const db = require("../config/db");
 
 describe('Autenticação', () => {
   beforeAll(async () => {
-    // Limpar usuários de teste
+    
     await db.execute('DELETE FROM usuarios WHERE email LIKE "%teste%"');
   });
   

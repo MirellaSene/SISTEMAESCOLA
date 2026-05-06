@@ -1,10 +1,10 @@
 const request = require("supertest");
-const app = require("../app"); // ajuste se necessário
+const app = require("../app"); 
 
 let authToken;
 
 beforeAll(async () => {
-  // registra usuário (se não existir)
+ 
   await request(app)
     .post("/auth/registrar")
     .send({

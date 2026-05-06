@@ -17,6 +17,15 @@ const professorModel = {
     return rows[0];
   },
 
+  // 🔥 NOVO: buscar professor por nome (usado na turma)
+  async findByNome(nome) {
+    const [rows] = await db.execute(
+      `SELECT * FROM professores WHERE nome = ? LIMIT 1`,
+      [nome]
+    );
+    return rows[0];
+  },
+
   async create(professor) {
     const { nome, email, telefone, especialidade } = professor;
 

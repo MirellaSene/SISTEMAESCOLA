@@ -5,7 +5,7 @@ let authToken;
 let notaId;
 
 beforeAll(async () => {
-  // 🔹 cria usuário
+
   await request(app)
     .post('/auth/registrar')
     .send({
@@ -14,7 +14,7 @@ beforeAll(async () => {
       senha: '123456'
     });
 
-  // 🔹 faz login
+
   const response = await request(app)
     .post('/auth/login')
     .send({

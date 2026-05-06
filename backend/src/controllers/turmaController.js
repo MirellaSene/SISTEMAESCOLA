@@ -1,4 +1,5 @@
 const turmaModel = require('../models/turmaModel');
+const professorModel = require('../models/professorModel');
 
 const turmaController = {
   async listar(req, res) {
@@ -29,18 +30,61 @@ const turmaController = {
 
   async criar(req, res) {
     try {
-      const { nome, ano_letivo, professor_id } = req.body;
+      const {
+        nome,
+        ano_letivo,
+        anoLetivo,
+        professor_id,
+        professorId,
+        professor,       
+        professor_nome     
+      } = req.body;
 
-      if (!nome || !ano_letivo) {
-        return res.status(400).json({ error: 'Campos obrigatórios faltando' });
+      const anoFinal = ano_letivo ?? anoLetivo;
+
+      let professorFinal =
+        professor_id ??
+        professorId ??
+        null;
+
+      const nomeProfessor = professor ?? professor_nome;
+
+      if (!professorFinal && nomeProfessor) {
+        const prof = await professorModel.findByNome(nomeProfessor);
+
+        if (!prof) {
+          return res.status(400).json({
+            error: 'Professor não encontrado'
+          });
+        }
+
+        professorFinal = prof.id;
       }
 
-      const result = await turmaModel.create({ nome, ano_letivo, professor_id });
+      if (!nome || !anoFinal) {
+        return res.status(400).json({
+          error: 'Campos obrigatórios faltando'
+        });
+      }
 
-      res.status(201).json({ id: result.insertId });
+      const result = await turmaModel.create({
+        nome,
+        ano_letivo: anoFinal,
+        professor_id: professorFinal
+      });
+
+      res.status(201).json({
+        message: 'Turma criada com sucesso',
+        id: result.insertId
+      });
+
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Erro ao criar turma' });
+      console.error("🔥 ERRO AO CRIAR TURMA:", error);
+
+      res.status(500).json({
+        error: error.message,
+        sql: error.sqlMessage || null
+      });
     }
   },
 
@@ -53,18 +97,48 @@ const turmaController = {
         return res.status(404).json({ error: 'Turma não encontrada' });
       }
 
+      const {
+        nome,
+        ano_letivo,
+        anoLetivo,
+        professor_id,
+        professorId,
+        professor,
+        professor_nome
+      } = req.body;
+
+      let professorFinal =
+        professor_id ??
+        professorId ??
+        turma.professor_id;
+
+      const nomeProfessor = professor ?? professor_nome;
+
+      if ((!professor_id && !professorId) && nomeProfessor) {
+        const prof = await professorModel.findByNome(nomeProfessor);
+
+        if (prof) {
+          professorFinal = prof.id;
+        }
+      }
+
       const dadosAtualizados = {
-        nome: req.body.nome ?? turma.nome,
-        ano_letivo: req.body.ano_letivo ?? turma.ano_letivo,
-        professor_id: req.body.professor_id ?? turma.professor_id
+        nome: nome ?? turma.nome,
+        ano_letivo: (ano_letivo ?? anoLetivo) ?? turma.ano_letivo,
+        professor_id: professorFinal
       };
 
       await turmaModel.update(id, dadosAtualizados);
 
-      res.status(200).json({ message: 'Turma atualizada com sucesso' });
+      res.status(200).json({
+        message: 'Turma atualizada com sucesso'
+      });
+
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Erro ao atualizar turma' });
+      res.status(500).json({
+        error: 'Erro ao atualizar turma'
+      });
     }
   },
 
@@ -79,10 +153,15 @@ const turmaController = {
 
       await turmaModel.delete(id);
 
-      res.status(200).json({ message: 'Turma deletada' });
+      res.status(200).json({
+        message: 'Turma deletada'
+      });
+
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Erro ao deletar turma' });
+      res.status(500).json({
+        error: 'Erro ao deletar turma'
+      });
     }
   }
 };

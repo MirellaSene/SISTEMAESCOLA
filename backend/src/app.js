@@ -11,6 +11,7 @@ const notaRoutes = require('./routes/notaRoutes');
 
 const app = express();
 
+
 app.use(cors({
   origin: [
     "http://localhost:5173",
@@ -24,6 +25,10 @@ app.use(cors({
   ]
 }));
 
+
+app.use(express.json());
+
+
 app.get("/", (req, res) => {
   res.status(200).json({ msg: "Api funcionando" });
 });
@@ -31,9 +36,6 @@ app.get("/", (req, res) => {
 app.get("/teste", (req, res) => {
   res.status(200).json({ ok: true });
 });
-
-app.use(cors());
-app.use(express.json());
 
 
 app.use('/auth', authRoutes);
@@ -44,7 +46,7 @@ app.use('/turmas', turmaRoutes);
 app.use('/alunos', alunoRoutes);
 app.use('/notas', notaRoutes);
 
-// ROOT
+
 app.get('/', (req, res) => {
   res.json({ message: 'API rodando 🚀' });
 });
